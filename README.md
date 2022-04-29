@@ -1,5 +1,5 @@
 # Java REST API  ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
-> Aplicação REST de cadastro de Pessoas
+> Aplicação REST de Cadastro de Pessoas
 
 ### CRUD Completo / Functions :maple_leaf: <br/>
 * **/salvar -> CREATE**
