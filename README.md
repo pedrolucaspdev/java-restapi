@@ -1,14 +1,30 @@
 # Java REST API  ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 > Aplicação REST de Cadastro de Pessoas
 
-### CRUD Completo / Functions :maple_leaf: <br/>
-* **/salvar -> CREATE**
-* **/buscar -> READ** 
-* **/buscarPorID -> READ BY ID**
-* **/buscarPorNome -> READ BY NAME**
-* **/atualizar -> UPDATE**
-* **/remover -> DELETE**
+## CRUD Completo / Functions :maple_leaf: <br/>
+### PostgreSQL Estrutura / Structure
+:key: Primary Key
+```py
+Strategy Generated: seq_usuario
+Long ID
+```
 
+🤵 Informações da Pessoa
+```py
+Bigint ID
+String nome (255)
+Integer idade 
+```
+###
+
+### API Funções / Functions
+* **/salvar**
+* **/buscar**  
+* **/buscarPorID**
+* **/buscarPorNome**
+* **/atualizar**
+* **/remover**
+###
 
 ## Tecnologias Utilizadas /  Technologies used  
 
@@ -23,7 +39,7 @@
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-```
+```py
 Java 18 - Openjdk 18 2022-03-22
 Maven - Apache Maven 3.6.3 (Red Hat 3.6.3-13)
 Spring Boot
@@ -36,7 +52,7 @@ Javascript
 Bootstrap - 5.1.3
 ```
 
-## Vídeo explicando o Projeto
+## <a href="https://www.youtube.com/watch?v=kcyH_zoQwUY" rel="nofollow">Vídeo explicando o Projeto</a> :movie:
 ```
 https://www.youtube.com/watch?v=kcyH_zoQwUY
 ```
