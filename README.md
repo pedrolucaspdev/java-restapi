@@ -35,3 +35,8 @@ CSS
 Javascript
 Bootstrap - 5.1.3
 ```
+
+## Vídeo explicando o Projeto
+```
+https://www.youtube.com/watch?v=kcyH_zoQwUY
+```
