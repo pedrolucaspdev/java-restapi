@@ -52,7 +52,7 @@ Javascript
 Bootstrap - 5.1.3
 ```
 
-## <a href="https://www.youtube.com/watch?v=kcyH_zoQwUY" rel="nofollow">Vídeo explicando o Projeto</a> :movie:
+## <a href="https://www.youtube.com/watch?v=kcyH_zoQwUY" rel="nofollow">Vídeo explicando o Projeto</a> :movie_camera:
 ```
 https://www.youtube.com/watch?v=kcyH_zoQwUY
 ```
