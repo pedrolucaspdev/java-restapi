@@ -20,7 +20,7 @@
 </head>
 <body>
 	<center>
-		<h2>Cadastro de Pessoas</h2>
+		<h2>Cadastro de <u>Pessoas</u></h2>
 	</center>
 
 	<form action="" id="formCadastroUser">
@@ -43,9 +43,29 @@
 		<button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
 		<button type="button" class="btn btn-secondary" onclick="this.form.reset()">Novo</button>
 		<button type="button" class="btn btn-success  glyphicon glyphicon-music " data-bs-toggle="modal" data-bs-target="#modalPesquisarUser">Pesquisar</button>
-		<button type="button" class="btn btn-danger" onclick="botaoDeletarDaTela()">Remover</button>
-		
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Remover</button>
 	</form>
+	
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Remover Usuário</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Você tem certeza?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" onclick="verificarCampoDeletar()">Remover</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
 
 
 	<div class="modal fade" id="modalPesquisarUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -60,9 +80,16 @@
 						<div class="mb-3">
 							<label for="recipient-name" class="col-form-label">Informe um Nome</label> <input type="text" class="form-control" id="nameBusca">
 						</div>
-						<button type="button" class="btn btn-secondary bi bi-search" onclick="pesquisarUser()">&#128269;</button>
+<!--  						<button type="button" class="btn btn-success bi bi-search" onclick="pesquisarUser()">&#128269;</button>
+-->
+						<button type="button" class="btn btn-success" onclick="pesquisarUser()">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 18">
+  								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+							</svg>
+						</button>
 						<button type="button" class="btn btn-warning" onclick="pesquisarTodos()">Listar Todos Usuários</button>
 
+						
 					<div style="height: 300px; overflow: scroll;">
 						<table class="table" id="tabelaresultados">
 							<thead>

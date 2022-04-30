@@ -42,7 +42,6 @@ function limpaUserDados() {
 
 function pesquisarUser () {	
 	limpaUserDados();
-	
 	var nome = $('#nameBusca').val();
 
 	if(nome != null && nome.trim() != '') {
@@ -59,14 +58,15 @@ function pesquisarUser () {
 	    }).fail(function(xhr, status, errorThrown) {
 			alert("Erro ao buscar usuário: " + xhr.responseText);
 		});
+	} else {
+		$('#nameBusca').focus();
+		return;		
 	} 
 }
 
 function pesquisarTodos () {
 	limpaUserDados();
 	var nome = $('#nameBusca').val();
-
-	if(nome != null && nome.trim() != '') {
 		
 	    $.ajax({
 			method: 'GET',
@@ -80,7 +80,7 @@ function pesquisarTodos () {
 			alert("Erro ao buscar todos usuários: " + xhr.responseText);
 		});
 	} 
-}
+
 
 
 function colocarEmEdicao (id) {
@@ -89,11 +89,11 @@ function colocarEmEdicao (id) {
 	        url: 'buscarPorID',
 	        data: 'iduser=' + id,
 	        success: function(data) {
-				$('#id').val(data.id);
-				$('#nome').val(data.nome);
-				$('#idade').val(data.idade); 
+					$('#id').val(data.id);
+					$('#nome').val(data.nome);
+					$('#idade').val(data.idade); 
 				
-				$('#modalPesquisarUser').modal('hide');     
+					$('#modalPesquisarUser').modal('hide');   
 	        }
 	    }).fail(function(xhr, status, errorThrown) {
 			alert("Erro ao buscar usuário por id: " + xhr.responseText);
@@ -101,7 +101,7 @@ function colocarEmEdicao (id) {
 }
 
 function deletarUser (id) {
-	if(confirm('Deseja realmente deletar este Usuário?')){
+//	if(confirm('Deseja realmente remover este Usuário?')){
 	
 	$.ajax({
 			method: 'DELETE',
@@ -109,15 +109,32 @@ function deletarUser (id) {
 	        data: 'iduser=' + id,
 	        success: function(data) {
 				$('#' + id).remove();
-				alert(data);
+				$("#exampleModal").modal('hide');
 				document.getElementById('formCadastroUser').reset();
 	        }
 	    }).fail(function(xhr, status, errorThrown) {
 			alert("Erro ao deletar usuário por id: " + xhr.responseText);
 		});
 	}
-}
+//}
 
+function verificarCampoDeletar () {
+	var nome = $('#nome').val()
+	var idade = $('#idade').val()
+	
+	if(nome == null || nome != null && nome.trim() == '') {
+		$("#exampleModal").modal('hide');
+		$('#nome').focus();
+		return;
+	
+	} else if(idade == null || idade != null && idade.trim() == '') {
+		$("#exampleModal").modal('hide');
+		$('#idade').focus();
+		return;
+	}
+	
+	botaoDeletarDaTela();	
+}
 
 function botaoDeletarDaTela () {
 	var id = $('#id').val();
@@ -125,7 +142,8 @@ function botaoDeletarDaTela () {
 	if(id != null && id.trim() != '') {
 		deletarUser(id);
 		document.getElementById('formCadastroUser').reset();
-		
+	} else {
+		alert('Usuário Não Encontrado!');
+		$("#exampleModal").modal('hide');
 	}
 }
-
