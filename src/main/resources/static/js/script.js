@@ -55,7 +55,7 @@ function pesquisarUser () {
 	        data: 'name=' + nome,
 	        success: function(data) {
 	            for(var i = 0; i < data.length; i++){
-	            	$('#tabelaresultados > tbody').append('<tr id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].nome+'</td><td><button type="button" class="btn btn-primary" onclick="colocarEmEdicao('+data[i].id+')">Ver</td><td><button type="button" class="btn btn-danger" onclick="deletarUser('+data[i].id+')">Remover</td></tr>');	
+	            	$('#tabelaresultados > tbody').append('<tr id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].nome+'</td><td><button type="button" class="btn btn-primary" onclick="colocarEmEdicao('+data[i].id+')">Ver</td><td><button type="button" class="btn btn-danger" onclick="botaoDeletarDoModal('+data[i].id+')">Remover</td></tr>');	
 	            }            
 	        }
 	    }).fail(function(xhr, status, errorThrown) {
