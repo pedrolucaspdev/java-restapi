@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.restapi.curso_jdev.model.Usuario;
 import br.com.restapi.curso_jdev.repository.UsuarioRepository;
 
-/**
- *
- * A sample greetings controller to return greeting text
- */
 @RestController
 public class GreetingsController {
 	
@@ -73,7 +69,6 @@ public class GreetingsController {
  	public ResponseEntity<?> atualizar (@RequestBody Usuario usuario) { // Receives used data
  		if (usuario.getId() == null) {
  	 		return new ResponseEntity<String>("ID Não Encontrado", HttpStatus.BAD_REQUEST );
- 			
  		}
  		Usuario user = usuarioRepository.saveAndFlush(usuario);
  		return new ResponseEntity<Usuario>(user, HttpStatus.OK );

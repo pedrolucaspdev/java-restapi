@@ -20,7 +20,13 @@ function salvarUsuario () {
 		contentType: "application/json; charset=utf-8",
 		success: function(response) {
 			$("#id").val(response.id)
-			alert("Salvo com Sucesso!");
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: 'Salvo com Sucesso!',
+			  showConfirmButton: false,
+			  timer: 2000
+			})
 		}
 	}).fail(function(xhr, status, errorThrown) {
 		alert("Erro ao Salvar: " + xhr.responseText);
@@ -30,9 +36,6 @@ function salvarUsuario () {
 function limpaUserDados() {
 		const tableEl = document.getElementById('tabelaresultados');
 		const tableBodyEl = tableEl.querySelector('tbody');
-	
-		// or, directly get the <tbody> element if its id is known
-		// const tableBodyEl = document.getElementById('table-rows');
 	
 		while (tableBodyEl.lastElementChild) {
 	  	tableBodyEl.removeChild(tableBodyEl.lastElementChild);
@@ -52,7 +55,7 @@ function pesquisarUser () {
 	        data: 'name=' + nome,
 	        success: function(data) {
 	            for(var i = 0; i < data.length; i++){
-	            	$('#tabelaresultados > tbody').append('<tr id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].nome+'</td><td><button type="button" class="btn btn-primary" onclick="colocarEmEdicao('+data[i].id+')">Ver</td><td><button type="button" class="btn btn-danger" onclick="deletarUser('+data[i].id+')">Remover</td></tr>');	
+	            	$('#tabelaresultados > tbody').append('<tr id="'+data[i].id+'"><td>'+data[i].nome+'</td><td>'+data[i].idade+'</td><td><button type="button" class="btn btn-primary" onclick="colocarEmEdicao('+data[i].id+')">Ver</td><td><button type="button" class="btn btn-danger" onclick="deletarUser('+data[i].id+')">Remover</td></tr>');	
 	            }            
 	        }
 	    }).fail(function(xhr, status, errorThrown) {
@@ -73,7 +76,7 @@ function pesquisarTodos () {
 	        url: 'buscar',
 	        success: function(data) {
 	            for(var i = 0; i < data.length; i++){
-	            	$('#tabelaresultados > tbody').append('<tr id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].nome+'</td><td><button type="button" class="btn btn-primary" onclick="colocarEmEdicao('+data[i].id+')">Ver</td><td><button type="button" class="btn btn-danger" onclick="deletarUser('+data[i].id+')">Remover</td></tr>');	
+					$('#tabelaresultados > tbody').append('<tr id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].nome+'</td><td><button type="button" class="btn btn-primary" onclick="colocarEmEdicao('+data[i].id+')">Ver</td><td><button type="button" class="btn btn-danger" onclick="botaoDeletarDoModal('+data[i].id+')">Remover</td></tr>');	
 	            }            
 	        }
 	    }).fail(function(xhr, status, errorThrown) {
@@ -100,9 +103,7 @@ function colocarEmEdicao (id) {
 		});
 }
 
-function deletarUser (id) {
-//	if(confirm('Deseja realmente remover este Usuário?')){
-	
+function deletarUser (id) {	
 	$.ajax({
 			method: 'DELETE',
 	        url: 'remover',
@@ -111,24 +112,23 @@ function deletarUser (id) {
 				$('#' + id).remove();
 				$("#exampleModal").modal('hide');
 				document.getElementById('formCadastroUser').reset();
-	        }
+				
+			}
+						
 	    }).fail(function(xhr, status, errorThrown) {
 			alert("Erro ao deletar usuário por id: " + xhr.responseText);
 		});
 	}
-//}
 
 function verificarCampoDeletar () {
 	var nome = $('#nome').val()
 	var idade = $('#idade').val()
 	
 	if(nome == null || nome != null && nome.trim() == '') {
-		$("#exampleModal").modal('hide');
 		$('#nome').focus();
 		return;
 	
 	} else if(idade == null || idade != null && idade.trim() == '') {
-		$("#exampleModal").modal('hide');
 		$('#idade').focus();
 		return;
 	}
@@ -140,10 +140,51 @@ function botaoDeletarDaTela () {
 	var id = $('#id').val();
 	
 	if(id != null && id.trim() != '') {
-		deletarUser(id);
-		document.getElementById('formCadastroUser').reset();
+		Swal.fire({
+			title: 'Você tem certeza?',
+			text: "O Usuário será removido",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Sim, remover!',
+			cancelButtonText: 'Cancelar'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				deletarUser(id);
+				document.getElementById('formCadastroUser').reset();
+		    	Swal.fire(
+		      		'Deletado',
+		      		'Usuário removido com sucesso!',
+		      		'success'
+		    	)
+		  	}
+		})
 	} else {
 		alert('Usuário Não Encontrado!');
 		$("#exampleModal").modal('hide');
 	}
+}
+
+function botaoDeletarDoModal (id) {	
+	Swal.fire({
+			title: 'Você tem certeza?',
+			text: "O Usuário será removido",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Sim, remover!',
+			cancelButtonText: 'Cancelar'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				deletarUser(id);
+				document.getElementById('formCadastroUser').reset();
+		    	Swal.fire(
+		      		'Deletado',
+		      		'Usuário removido com sucesso!',
+		      		'success'
+		    	)
+		  	}
+		})
 }
