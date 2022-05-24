@@ -1,3 +1,30 @@
+function getValue() {
+	let txt = document.getElementById("nameBusca");
+	let txtValue = txt.value;
+
+	console.log(txtValue);
+	
+	if(txtValue != null && txtValue.trim() != '') {
+		//document.getElementById('formCadastroUser').reset();
+		limpaUserDados();
+		$.ajax({
+				method: 'GET',
+		        url: 'buscarPorNome',
+		        data: 'name=' + txtValue,
+		        success: function(data) {
+		            for(var i = 0; i < data.length; i++){
+		            	$('#tabelaresultados > tbody').append('<tr id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].nome+'</td><td><button type="button" class="btn btn-primary" onclick="colocarEmEdicao('+data[i].id+')">Ver</td><td><button type="button" class="btn btn-danger" onclick="botaoDeletarDoModal('+data[i].id+')">Remover</td></tr>');	
+		            }            
+		        }
+		    }).fail(function(xhr, status, errorThrown) {
+				alert("Erro ao buscar usuário: " + xhr.responseText);
+			});
+	} else {
+		limpaUserDados();
+		return;		
+	} 
+}
+
 //Envia uma requisição POST com as informações do Usuário
 function salvarUsuario () {
 	var id = $('#id').val()
@@ -43,30 +70,6 @@ function limpaUserDados() {
 }
 
 
-function pesquisarUser () {	
-	limpaUserDados();
-	var nome = $('#nameBusca').val();
-
-	if(nome != null && nome.trim() != '') {
-		document.getElementById('formCadastroUser').reset();
-	    $.ajax({
-			method: 'GET',
-	        url: 'buscarPorNome',
-	        data: 'name=' + nome,
-	        success: function(data) {
-	            for(var i = 0; i < data.length; i++){
-	            	$('#tabelaresultados > tbody').append('<tr id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].nome+'</td><td><button type="button" class="btn btn-primary" onclick="colocarEmEdicao('+data[i].id+')">Ver</td><td><button type="button" class="btn btn-danger" onclick="botaoDeletarDoModal('+data[i].id+')">Remover</td></tr>');	
-	            }            
-	        }
-	    }).fail(function(xhr, status, errorThrown) {
-			alert("Erro ao buscar usuário: " + xhr.responseText);
-		});
-	} else {
-		$('#nameBusca').focus();
-		return;		
-	} 
-}
-
 function pesquisarTodos () {
 	limpaUserDados();
 	var nome = $('#nameBusca').val();
@@ -82,6 +85,8 @@ function pesquisarTodos () {
 	    }).fail(function(xhr, status, errorThrown) {
 			alert("Erro ao buscar todos usuários: " + xhr.responseText);
 		});
+		
+	    document.getElementById("search").reset();
 	} 
 
 
